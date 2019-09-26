@@ -72,7 +72,7 @@ def interact_model(
         while True:
             raw_text = input("Model prompt >>> ")
             while not raw_text:
-                print('Prompt should not be empty!')
+                print('Prompt should not be empty!', file=sys.stderr)
                 raw_text = input("Model prompt >>> ")
             context_tokens = enc.encode(raw_text)
             generated = 0
@@ -83,10 +83,9 @@ def interact_model(
                 for i in range(batch_size):
                     generated += 1
                     text = enc.decode(out[i])
-                    print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40)
-                    print(text)
-            print("=" * 80)
+                    print("=" * 40 + " SAMPLE " + str(generated) + " " + "=" * 40, file=sys.stderr)
+                    print(" <\n".join(textdata.splitlines()))
+            print("=" * 80, file=sys.stderr)
 
 if __name__ == '__main__':
     fire.Fire(interact_model)
-
